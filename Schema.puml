@@ -1,0 +1,11 @@
+@startuml
+User -> HttpMaid: ask for OpenAPI spec
+HttpMaid -> UseCaseMaid: ask for schemata of usecases
+UseCaseMaid -> MapMaid: ask for schemata of usecase parameters and return values
+MapMaid -> UseCaseMaid: parameter and return value schemata
+
+
+
+UseCaseMaid -> HttpMaid: general schema
+HttpMaid -> User: OpenAPI spec (i.e. HTTP-specific schema)
+@enduml

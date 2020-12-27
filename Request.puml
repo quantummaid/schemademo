@@ -1,0 +1,16 @@
+@startuml
+User -> HttpMaid: HTTP-specific request
+HttpMaid -> UseCaseMaid: general request
+UseCaseMaid -> InjectMaid: instantiate MyUseCase.class
+InjectMaid -> UseCaseMaid: myUseCase object
+UseCaseMaid -> MapMaid: map request body to parameter objects
+MapMaid -> UseCaseMaid: parameter1, parameter2, parameter3,...
+
+UseCaseMaid -> UseCaseMaid: call usecase method
+
+UseCaseMaid -> MapMaid: map return value to response body
+MapMaid -> UseCaseMaid: response body
+
+UseCaseMaid -> HttpMaid: general response
+HttpMaid -> User: HTTP-specific response
+@enduml

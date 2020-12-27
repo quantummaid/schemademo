@@ -1,0 +1,11 @@
+@startuml
+[*] --> QuantumMaid
+QuantumMaid --> HttpMaid
+QuantumMaid --> QueueMaid
+QuantumMaid --> ...
+HttpMaid --> UseCaseMaid
+QueueMaid --> UseCaseMaid
+... --> UseCaseMaid
+UseCaseMaid --> InjectMaid
+UseCaseMaid --> MapMaid
+@enduml
