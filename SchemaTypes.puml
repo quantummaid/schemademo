@@ -1,0 +1,14 @@
+@startuml
+[*] --> HttpMaid : OpenAPI spec
+[*] --> HttpMaid : AsyncAPI spec
+[*] --> QueueMaid : AWS SQS schema
+[*] --> QueueMaid : AsyncAPI spec
+[*] --> Repository : NoSQL schema
+
+HttpMaid --> UseCaseMaid : general schema
+QueueMaid --> UseCaseMaid : general schema
+
+UseCaseMaid --> MapMaid : schema for individual class
+
+Repository --> MapMaid : schema for individual class
+@enduml

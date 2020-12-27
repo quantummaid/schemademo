@@ -1,5 +1,7 @@
 @startuml
-User -> HttpMaid: ask for OpenAPI spec
+User -> QuantumMaid: ask for OpenAPI (REST) spec
+
+QuantumMaid -> HttpMaid: ask for OpenAPI spec
 HttpMaid -> UseCaseMaid: ask for schemata of usecases
 UseCaseMaid -> MapMaid: ask for schemata of usecase parameters and return values
 MapMaid -> UseCaseMaid: parameter and return value schemata
@@ -7,5 +9,40 @@ MapMaid -> UseCaseMaid: parameter and return value schemata
 
 
 UseCaseMaid -> HttpMaid: general schema
-HttpMaid -> User: OpenAPI spec (i.e. HTTP-specific schema)
+HttpMaid -> QuantumMaid: OpenAPI spec (i.e. HTTP-specific schema)
+
+QuantumMaid -> User: OpenAPI spec
+
+
+User -> QuantumMaid: ask for websocket (AsyncAPI) spec
+
+QuantumMaid -> HttpMaid: ask for AsyncAPI spec
+HttpMaid -> UseCaseMaid: ask for schemata of usecases
+UseCaseMaid -> MapMaid: ask for schemata of usecase parameters and return values
+MapMaid -> UseCaseMaid: parameter and return value schemata
+
+
+
+UseCaseMaid -> HttpMaid: general schema
+HttpMaid -> QuantumMaid: AsyncAPI spec
+
+QuantumMaid -> User: AsyncAPI spec
+
+
+
+
+User -> QuantumMaid: ask for event (AWS SQS) schema
+
+QuantumMaid -> QueueMaid: ask for AWS SQS schema
+QueueMaid -> UseCaseMaid: ask for schemata of usecases
+UseCaseMaid -> MapMaid: ask for schemata of usecase parameters and return values
+MapMaid -> UseCaseMaid: parameter and return value schemata
+
+
+
+UseCaseMaid -> QueueMaid: general schema
+QueueMaid -> QuantumMaid: AWS SQS schema
+
+QuantumMaid -> User: AWS SQS schema
+
 @enduml

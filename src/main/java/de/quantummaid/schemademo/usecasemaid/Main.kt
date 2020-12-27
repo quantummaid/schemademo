@@ -1,7 +1,8 @@
 package de.quantummaid.schemademo.usecasemaid
 
+import de.quantummaid.mapmaid.builder.MapMaidBuilder
 import de.quantummaid.schemademo.schema.*
-import de.quantummaid.usecasemaid.UseCaseMaid
+import de.quantummaid.usecasemaid.UseCaseMaid.aUseCaseMaid
 
 class HardcodedUserRepository : UserRepository {
 
@@ -22,19 +23,13 @@ class HardcodedOrderService : OrderService {
 }
 
 fun main() {
-    val useCaseMaid = UseCaseMaid.aUseCaseMaid()
+    val useCaseMaid = aUseCaseMaid()
             .invoking(OrderUseCase::class.java)
             .withDependencies {
                 it.withImplementation(UserRepository::class.java, HardcodedUserRepository::class.java)
                 it.withImplementation(OrderService::class.java, HardcodedOrderService::class.java)
             }
-            .withMapperConfiguration {
-                it.withAdvancedSettings {
-                    it.withTypeIdentifierExtractor {
-                        it.realType.assignableType().simpleName
-                    }
-                }
-            }
+            .withMapperConfiguration { it.identifyingPolymorphicSubtypesUsing { it.simpleName } }
             .build()
 
     val response = useCaseMaid.invoke(OrderUseCase::class.java, mapOf(
@@ -46,5 +41,13 @@ fun main() {
         println(response.returnValue())
     } else {
         response.exception().printStackTrace()
+    }
+}
+
+fun MapMaidBuilder.identifyingPolymorphicSubtypesUsing(extractor: (Class<*>) -> String): MapMaidBuilder {
+    return this.withAdvancedSettings {
+        it.withTypeIdentifierExtractor {
+            it.realType.assignableType().simpleName
+        }
     }
 }
