@@ -17,10 +17,11 @@ data class City(val value: String)
 data class Street(val value: String)
 data class StreetNumber(val value: String)
 
-sealed class ShippingStatus
-class ToBeShipped(val timeToShipping: Time) : ShippingStatus()
-class Shipping(val timeToDelivery: Time, val location: Location) : ShippingStatus()
-class Delivered(val success: DeliveryStatus) : ShippingStatus()
+sealed class ShippingStatus {
+    data class ToBeShipped(val timeToShipping: Time) : ShippingStatus()
+    data class Shipping(val timeToDelivery: Time, val location: Location) : ShippingStatus()
+    data class Delivered(val success: DeliveryStatus) : ShippingStatus()
+}
 
 data class Time(val milliseconds: Long) {
     companion object {

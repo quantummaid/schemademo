@@ -18,7 +18,7 @@ class HardcodedUserRepository : UserRepository {
 
 class HardcodedOrderService : OrderService {
     override fun registerOrder(productId: ProductId, address: Address): Order {
-        return Order(address, ToBeShipped(Time.hours(12)))
+        return Order(address, ShippingStatus.ToBeShipped(Time.hours(12)))
     }
 }
 
